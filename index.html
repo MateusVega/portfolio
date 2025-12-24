@@ -248,7 +248,7 @@
             <button class="material-symbols-outlined bg-white border-2 border-gray-400 rounded-full p-3 shadow hover:bg-gray-100 transition pointer-events-auto md:scale-100 scale-75" aria-label="Voltar" onclick="change_screen(-1)" id="left_btn">arrow_back_ios</button>
             <button class="material-symbols-outlined bg-white border-2 border-gray-400 rounded-full p-3 shadow hover:bg-gray-100 transition pointer-events-auto md:scale-100 scale-75" aria-label="Avançar" onclick="change_screen(1)" id="right_btn">arrow_forward_ios</button>
         </div>
-        <div id="full_screen_project" class="flex flex-col border-b-4 border-b-gray-400 absolute inset-0 z-30 w-[100vw] h-[100vh] translate-y-full bg-white transition-transform duration-500">
+        <div id="full_screen_project" class="flex flex-col border-b-4 border-b-gray-400 absolute inset-0 z-30 w-[100vw] h-[100vh] -translate-y-full bg-white transition-transform duration-500">
             <div class="w-full h-[5%] flex">
                 <a onclick="close_project()">
                     <svg class="fill-current h-full w-full" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -271,7 +271,7 @@
                     </div>
                     <div class="w-[35%] h-full flex flex-col justify-between p-8">
                         <div class="flex flex-col gap-3">
-                            <h1 class="text-5xl font-extrabold tracking-tight text-zinc-900" id="p_tile">PROJETITO MANITO</h1>
+                            <h1 class="text-5xl font-extrabold tracking-tight text-zinc-900" id="p_title">PROJETITO MANITO</h1>
                             <p class="text-zinc-500 text-lg" id="p_subtitle">Just a projetito manitooo</p>
                         </div>
                         <div class="flex flex-col gap-4">
@@ -347,8 +347,47 @@
                 });
             }
 
+            let img1 = document.getElementById("p_img1");
+            let img2 = document.getElementById("p_img2");
+            let img3 = document.getElementById("p_img3");
+
+            let title = document.getElementById("p_title");
+            let subtitle = document.getElementById("p_subtitle");
+
+            let github = document.getElementById("p_github");
+            let play = document.getElementById("p_play");
+
+            let details = document.getElementById("p_details");
+            let overview = document.getElementById("p_overview");
+            let whatILearned = document.getElementById("p_whatILearned");
+
+            let technologies = document.getElementById("p_technologies");
+
+            function update_project(id) {
+                fetch("projects.json")
+                    .then((res) => res.json())
+                    .then((projetos) => {
+                        const projeto = projetos[id];
+                        img1.src = projeto["p_img1"];
+                        img2.src = projeto["p_img2"];
+                        img3.src = projeto["p_img3"];
+                        title.innerHTML = projeto["p_title"];
+                        subtitle.innerHTML = projeto["p_subtitle"];
+                        github.href = projeto["p_github"];
+                        play.href = projeto["p_play"];
+                        details.innerHTML = projeto["p_details"];
+                        overview.innerHTML = projeto["p_overview"];
+                        whatILearned.innerHTML = projeto["p-whatILearned"];
+                        technologies.innerHTML = "";
+                        projeto["p_technologies"].forEach((element) => {
+                            technologies.innerHTML += `<li class="px-3 py-1 bg-zinc-100 rounded-full text-zinc-700">${element}</li>`;
+                        });
+                    });
+            }
+
             function open_project(id) {
                 PROJECT_SCENE.classList.remove("-translate-y-full");
+                update_project(id);
             }
             function close_project() {
                 PROJECT_SCENE.classList.add("-translate-y-full");

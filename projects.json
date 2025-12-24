@@ -1,0 +1,15 @@
+{
+    "project-1": {
+        "p_img1": "aaa",
+        "p_img2": "bbb",
+        "p_img3": "ccc",
+        "p_title": "ddd",
+        "p_subtitle": "eee",
+        "p_github": "fff",
+        "p_play": "ggg",
+        "p_details": "hhh",
+        "p_overview": "iii",
+        "p_whatILearned": "jjj",
+        "p_technologies": ["kkk", "lll", "mmm"]
+    }
+}
